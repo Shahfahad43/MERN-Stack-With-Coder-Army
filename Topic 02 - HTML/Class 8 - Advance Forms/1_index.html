@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form | Project</title>
+  </head>
+  <body>
+    <form action="">
+      <fieldset>
+        <legend>Exam Registeration Form</legend>
+
+        <!-- Name -->
+        <label for="name">Full Name: </label>
+        <input
+          type="text"
+          id="name"
+          name="fName"
+          placeholder="e.g. Shah Fahad"
+          required
+        />
+        <br /><br />
+
+        <!-- Email -->
+        <label for="email">Email: </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="e.g. fahad123@gmail.com"
+          required
+        />
+        <br /><br />
+
+        <!-- Phone Number -->
+        <label for="phone">Phone: </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="e.g. +92123456789"
+          required
+        />
+        <br /><br />
+
+        <!-- Password -->
+        <label for="password">Password: </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="e.g. fahad234"
+          required
+        />
+        <br /><br />
+
+        <!-- Gender -->
+        <label>Gender: </label>
+        <input type="radio" id="male" name="gender" />
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" />
+        <label for="female">Female</label>
+        <input type="radio" id="female" name="gender" />
+        <label for="other">Other</label>
+        <br /><br />
+
+        <!-- DOB -->
+        <label for="DOB">Date of Birth: </label>
+        <input
+          type="date"
+          id="dob"
+          name="DOB"
+          min="2020-01-01"
+          max="2026-12-31"
+          required
+        />
+        <br /><br />
+        <!-- School Name -->
+        <label for="schoolName">Shool Name: </label>
+        <input type="text" id="schoolName" name="schoolName" />
+        <br /><br />
+
+        <!-- Board -->
+        <label for="board">Board: </label>
+        <select name="board" id="board">
+          <option value="" disabled selected>Select your board</option>
+          <option value="Mardan">Mardan</option>
+          <option value="Peshawar">Peshawar</option>
+          <option value="Malakand">Malakand</option>
+        </select>
+        <br /><br />
+
+        <!-- Year of passing -->
+        <label for="year">Passing Year: </label>
+        <input type="number" min="2020" max="2025" />
+        <br /><br />
+
+        <!-- Exam Center -->
+        <label for="center">Exam Center: </label>
+        <select name="board" id="board">
+          <option value="" disabled selected>Select your board</option>
+          <option value="Mardan">Mardan</option>
+          <option value="Peshawar">Peshawar</option>
+          <option value="Malakand">Malakand</option>
+        </select>
+        <br /><br />
+
+        <!-- Register button  -->
+        <button>Register</button>
+      </fieldset>
+    </form>
+  </body>
+</html>
