@@ -1,0 +1,46 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Flag container */
+.flag {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  border: 1px solid black;
+}
+
+/* White stripe */
+.white {
+  width: 75px; /* 1/4 of flag width */
+  background-color: white;
+}
+
+/* Green part */
+.green {
+  width: 225px;
+  background-color: #01411c;
+  position: relative;
+}
+
+/* Crescent */
+.moon {
+  color: white;
+  font-size: 110px;
+  position: absolute;
+  top: 40px;
+  left: 55px;
+}
+
+/* Star */
+.star {
+  color: white;
+  font-size: 35px;
+  position: absolute;
+  top: 55px;
+  left: 120px;
+  transform: rotate(20deg);
+}

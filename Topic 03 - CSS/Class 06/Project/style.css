@@ -1,0 +1,13 @@
+* {
+  margin: 0px;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  background-color: white;
+}
+
+#introduction {
+  padding-top: 150px;
+}

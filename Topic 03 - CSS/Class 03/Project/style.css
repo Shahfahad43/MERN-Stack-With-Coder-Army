@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
+
+body {
+  background-color: silver;
+  font-family: "Poppins", sans-serif;
+}
+
+header {
+  background-color: rgb(87, 220, 87);
+}
+
+header h1 {
+  font-size: 50px;
+  color: #ffffff;
+}
+
+header h3 {
+  color: yellow;
+  font-size: 30px;
+}
+
+section {
+  background-color: #fdf5f5;
+}
+
+#css h2 {
+  color: rgb(33, 91, 238);
+  font-size: 2rem;
+}
+
+#css h3 {
+  color: rgb(235, 114, 195);
+  font-size: 1.5rem;
+}
+
+#javascript h2 {
+  color: rgb(228, 78, 78);
+  font-size: 2rem;
+}
+
+#javascript h3 {
+  font-size: 1.5rem;
+  color: rgb(225, 96, 182);
+}
+
+#responsiveness h2 {
+  color: rgb(202, 0, 252);
+  font-size: 2rem;
+}
+
+footer {
+  font-weight: bold;
+  background-color: #fdf5f5;
+  letter-spacing: 5px;
+}
+
+table {
+  width: 100%;
+}
+
+table th {
+  background-color: rgb(29, 110, 240);
+  color: white;
+  text-align: left;
+}

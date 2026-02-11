@@ -1,0 +1,23 @@
+.flag {
+  width: 300px;
+  height: 150px;
+  border: 1px solid black;
+  display: flex;
+}
+
+.green {
+  width: 100px;
+  height: 150px;
+  background-color: green;
+}
+
+.white {
+  width: 100px;
+  height: 150px;
+}
+
+.orange {
+  width: 100px;
+  height: 150px;
+  background-color: orange;
+}
