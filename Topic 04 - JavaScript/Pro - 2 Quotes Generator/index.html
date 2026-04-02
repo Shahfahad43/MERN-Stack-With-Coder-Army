@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Random Quote Generator</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 600px;
+        width: 90%;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+      }
+
+      .quote-box {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        border-left: 5px solid #667eea;
+      }
+
+      #quote {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+
+      #author {
+        font-size: 1.2rem;
+        color: #777;
+        text-align: right;
+      }
+
+      #author::before {
+        content: "- ";
+      }
+
+      button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        border: none;
+        outline: none;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        #quote {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Random Quote Generator</h1>
+      <div class="quote-box">
+        <div id="quote">Click the button to generate a quote</div>
+        <div id="author">Unknown</div>
+      </div>
+      <button id="generate-btn">Generate New Quote</button>
+    </div>
+    <script>
+      // Taking Elements
+      const quoteBox = document.getElementsByClassName("quote-box");
+      let quoteEl = document.getElementById("quote");
+      let authorEl = document.getElementById("author");
+      const buttonEl = document.getElementById("generate-btn");
+
+      const quotes = [
+        {
+          quote: "The only way to do great work is to love what you do.",
+          author: "Steve Jobs",
+        },
+        {
+          quote: "Life is what happens when you're busy making other plans.",
+          author: "John Lennon",
+        },
+        {
+          quote:
+            "The future belongs to those who believe in the beauty of their dreams.",
+          author: "Eleanor Roosevelt",
+        },
+        {
+          quote:
+            "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+          author: "Winston Churchill",
+        },
+        {
+          quote: "Be the change that you wish to see in the world.",
+          author: "Mahatma Gandhi",
+        },
+        {
+          quote:
+            "It does not matter how slowly you go as long as you do not stop.",
+          author: "Confucius",
+        },
+        {
+          quote: "Everything you've ever wanted is on the other side of fear.",
+          author: "George Addair",
+        },
+        {
+          quote:
+            "The best time to plant a tree was 20 years ago. The second best time is now.",
+          author: "Chinese Proverb",
+        },
+        {
+          quote: "You miss 100% of the shots you don't take.",
+          author: "Wayne Gretzky",
+        },
+        {
+          quote:
+            "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
+          author: "Maya Angelou",
+        },
+        {
+          quote:
+            "Whether you think you can or you think you can't, you're right.",
+          author: "Henry Ford",
+        },
+        {
+          quote: "The journey of a thousand miles begins with one step.",
+          author: "Lao Tzu",
+        },
+        {
+          quote:
+            "What you get by achieving your goals is not as important as what you become by achieving your goals.",
+          author: "Zig Ziglar",
+        },
+        {
+          quote:
+            "Your time is limited, don't waste it living someone else's life.",
+          author: "Steve Jobs",
+        },
+        {
+          quote: "The only impossible journey is the one you never begin.",
+          author: "Tony Robbins",
+        },
+        {
+          quote: "Don't watch the clock; do what it does. Keep going.",
+          author: "Sam Levenson",
+        },
+        {
+          quote: "The mind is everything. What you think you become.",
+          author: "Buddha",
+        },
+        {
+          quote:
+            "Happiness is not something ready made. It comes from your own actions.",
+          author: "Dalai Lama",
+        },
+        {
+          quote: "Believe you can and you're halfway there.",
+          author: "Theodore Roosevelt",
+        },
+        {
+          quote: "What we think, we become.",
+          author: "Buddha",
+        },
+      ];
+
+      function generateQuote() {
+        let randomNumber = Math.floor(Math.random() * quotes.length);
+        quoteEl.innerText = quotes[randomNumber].quote;
+        authorEl.innerText = quotes[randomNumber].author;
+      }
+
+      buttonEl.addEventListener("click", generateQuote);
+    </script>
+  </body>
+</html>

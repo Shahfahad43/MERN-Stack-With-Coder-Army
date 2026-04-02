@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button {
+  border: 1px solid white;
+  height: 100px;
+  width: 100px;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+button:active {
+  transform: scale(0.9);
+}
+
+#red {
+  background-color: red;
+}
+#blue {
+  background-color: blue;
+}
+#green {
+  background-color: green;
+}
+#yellow {
+  background-color: yellow;
+}
+#orange {
+  background-color: orange;
+}

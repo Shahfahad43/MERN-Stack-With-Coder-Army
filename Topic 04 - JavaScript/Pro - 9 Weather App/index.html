@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="header">
+        <h1 id="appTitle">Weather App</h1>
+        <div class="search-container">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search city (e.g., London)..."
+            autofocus
+          />
+          <button id="searchBtn">Search</button>
+        </div>
+      </header>
+
+      <main id="weatherDisplay" class="hidden">
+        <section id="currentWeather" class="card">
+          <div id="locationContainer">
+            <h2 id="cityName">City Name</h2>
+            <p id="localTime">Local Time</p>
+          </div>
+
+          <div id="temperatureContainer">
+            <div class="temp-main">
+              <h1 id="temperature">0°C</h1>
+              <img id="conditionImg" src="" alt="" />
+            </div>
+            <p id="conditionText">Condition</p>
+          </div>
+
+          <div id="extraInfo" class="grid-stats">
+            <div class="stat-item">
+              Feels Like <span id="feelsLike">--</span>
+            </div>
+            <div class="stat-item">Humidity <span id="humidity">--</span></div>
+            <div class="stat-item">Pressure <span id="pressure">--</span></div>
+            <div class="stat-item">
+              Visibility <span id="visibility">--</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="secondary-info">
+          <section id="windSection" class="card">
+            <h2>Wind Status</h2>
+            <div id="windContainer" class="grid-stats">
+              <div class="stat-item">Speed <span id="windSpeed">--</span></div>
+              <div class="stat-item">
+                Direction <span id="windDirection">--</span>
+              </div>
+            </div>
+          </section>
+
+          <section id="airQualitySection" class="card">
+            <h2>
+              Air Quality Index:
+              <span id="aqiValue" class="inline-aqi">--</span>
+            </h2>
+            <div id="pollutants" class="grid-stats">
+              <div class="stat-item">CO <span id="co">--</span></div>
+              <div class="stat-item">NO₂ <span id="no2">--</span></div>
+              <div class="stat-item">O₃ <span id="o3">--</span></div>
+              <div class="stat-item">SO₂ <span id="so2">--</span></div>
+              <div class="stat-item">PM2.5 <span id="pm25">--</span></div>
+              <div class="stat-item">PM10 <span id="pm10">--</span></div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

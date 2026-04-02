@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tawla | Explore the resturants and your favourite food</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <h1 id="logo">Tawla</h1>
+        <div id="formButtons" class="auth-buttons">
+          <button id="signup">Sign Up</button>
+          <button id="login">Login</button>
+        </div>
+        <div id="logOutBtn">Log out</div>
+      </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="mainContainer">
+      <!-- Category Switch -->
+      <section class="secondHeader">
+        <div class="category">
+          <img
+            src="https://b.zmtcdn.com/data/o2_assets/30fa0a844f3ba82073e5f78c65c18b371616149662.png"
+          />
+          <button id="diningOut">Dining Out</button>
+        </div>
+
+        <div class="category">
+          <img
+            src="https://b.zmtcdn.com/data/o2_assets/246bbd71fbba420d5996452be3024d351616150055.png"
+          />
+          <button id="delivery">Delivery</button>
+        </div>
+      </section>
+
+      <!-- Filters -->
+      <section id="filterButtons">
+        <button id="rating">⭐ Rating: 4.5+</button>
+        <button id="petFriendly">🐾 Pet Friendly</button>
+        <button id="outdoorSeating">🌿 Outdoor</button>
+        <button id="openNow">🟢 Open Now</button>
+      </section>
+
+      <!-- Cards -->
+      <section class="container"></section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div id="footerContent">
+        <!-- Top -->
+        <div id="footerFirst">
+          <h1>Tawla</h1>
+
+          <div class="footer-selects">
+            <select>
+              <option>Saudi Arabia</option>
+              <option>Pakistan</option>
+              <option>Iran</option>
+            </select>
+
+            <select>
+              <option>English</option>
+              <option>Arabic</option>
+              <option>Urdu</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div id="lastFooter">
+          <div class="footer-col">
+            <h3>About</h3>
+            <a href="#">Who we are</a>
+            <a href="#">Blog</a>
+            <a href="#">Work with us</a>
+            <a href="#">Contact</a>
+          </div>
+
+          <div class="footer-col">
+            <h3>Learn More</h3>
+            <a href="#">Privacy</a>
+            <a href="#">Security</a>
+            <a href="#">Terms</a>
+          </div>
+
+          <div class="footer-col">
+            <h3>Social</h3>
+            <div class="social-icons">
+              <i class="fa-brands fa-linkedin"></i>
+              <i class="fa-brands fa-instagram"></i>
+              <i class="fa-brands fa-youtube"></i>
+              <i class="fa-brands fa-facebook"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="../JS Files/main.js"></script>
+  </body>
+</html>

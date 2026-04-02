@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Astrology</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="image" id="myImage">
+        <video id="bg-video" autoplay loop muted playsinline>
+          <source
+            src="images/PixVerse_V5.6_Image_Text_360P_animate_this_ima.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div id="form" class="form">
+        <form id="astrology-form">
+          <label for="firstName">First Name:</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            placeholder="Enter your first name here"
+          />
+
+          <label for="surname">Surname:</label>
+          <input
+            type="text"
+            id="surname"
+            name="surname"
+            placeholder="Enter your surname here"
+            required
+          />
+
+          <label for="gender">Gender:</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="non-binary">Non-binary</option>
+          </select>
+
+          <label for="dob">Date: </label>
+          <input type="number" id="date" name="dob" required />
+
+          <label for="dob">Month: </label>
+          <input type="number" id="month" name="dob" required />
+
+          <label for="dob">Year: </label>
+          <input type="number" id="year" name="dob" required />
+
+          <label for="tob">Time of Birth:</label>
+          <input type="time" id="tob" name="tob" required />
+
+          <label for="pob">Place of Birth:</label>
+          <input
+            type="text"
+            id="pob"
+            name="pob"
+            placeholder="City, Country"
+            required
+          />
+
+          <button type="submit" id="submit-btn">Show Results</button>
+        </form>
+      </div>
+    </main>
+    <div id="astrologyCard" class="astrologyCard"></div>
+    <script src="./script.js"></script>
+  </body>
+</html>
