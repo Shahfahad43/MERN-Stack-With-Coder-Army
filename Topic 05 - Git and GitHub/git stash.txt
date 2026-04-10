@@ -1,0 +1,9 @@
+git stash - randnom name 
+git stash -m "name of stash"
+git stash list - to view all stashes 
+git stash apply - get the latest stash 
+git stash apply stash@{n} - where n represents the order of stash 
+git stash pop - delete the latest stash 
+git stash drop stash@{n} - delete specific one 
+git stash clear - to delete all the stashes 
+git stash branch "name of branch" stash@{n} - to create a new branch
