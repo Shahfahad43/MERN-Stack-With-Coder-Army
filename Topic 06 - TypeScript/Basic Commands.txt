@@ -1,0 +1,38 @@
+Steps with Commands
+
+1. Install Node.js
+node -v
+npm -v
+
+
+2. Install TypeScript
+npm install -g typescript
+tsc -v
+
+3. Create project folder
+mkdir my-project
+cd my-project
+
+4. Create TypeScript file
+touch app.ts
+
+
+5. Compile TypeScript → JavaScript
+tsc app.ts
+
+6. Run JavaScript file
+node app.js
+
+7. Initialize config (optional)
+tsc --init
+
+8. Compile all files (optional)
+tsc
+
+9. Enable auto-compile (optional)
+tsc --watch
+
+10. Quit the --watch
+Ctrl + C
+Press once or twice in the terminal where tsc --watch is running
+
