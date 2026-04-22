@@ -1,0 +1,10 @@
+git init
+git add .
+git commit -m "my first commit"
+
+1. make repository in GitHub
+now you will see the details 
+	i. push an existing repository from command line
+		git remote add origin "link"
+		git branch -M main
+		git push -u origin main
