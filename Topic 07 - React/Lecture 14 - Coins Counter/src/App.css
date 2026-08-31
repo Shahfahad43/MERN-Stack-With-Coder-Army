@@ -1,0 +1,73 @@
+/* CreateCoin.css */
+
+.coin-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.coin-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.coin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.coin-card img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+}
+
+.coin-card h3 {
+  margin: 8px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.coin-card p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.coin-card .price {
+  font-weight: bold;
+  color: #10b981;
+  font-size: 16px;
+}
+
+.coin-card .rank {
+  background: #f3f4f6;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  font-size: 12px;
+  color: #555;
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 24px;
+  color: #666;
+  margin-top: 50px;
+}
+
+.error-text {
+  text-align: center;
+  font-size: 24px;
+  color: #ef4444;
+  margin-top: 50px;
+}
