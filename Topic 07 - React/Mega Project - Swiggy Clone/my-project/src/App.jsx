@@ -4,6 +4,7 @@ import FoodOptions from "./components/FoodOptions";
 import GroceryData from "./components/GroceryData";
 import Banner from "./components/Banner";
 import DineoutData from "./components/DineoutData";
+import ResturantData from "./Utils/ResturantOptions";
 function App() {
   return (
     <>
@@ -12,6 +13,7 @@ function App() {
       <GroceryData />
       <Banner />
       <DineoutData />
+      <ResturantData />
     </>
   );
 }

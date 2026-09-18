@@ -2,6 +2,7 @@ export default function DineoutCard({ restaurant }) {
   const info = restaurant?.info;
   const imageId = info?.mediaFiles?.[0]?.url;
   const cuisines = info?.cuisines?.slice(0, 2).join(", ");
+  // const locality = info?.locality?.slice(0, 2).join(", ");
 
   return (
     <div className="w-80 shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-white p-3 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
@@ -13,7 +14,7 @@ export default function DineoutCard({ restaurant }) {
           className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
         />
         {/* Dark gradient for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
         {/* Text inside the image banner */}
         <div className="absolute bottom-2 left-3 right-3 flex items-end justify-between gap-2">
@@ -36,6 +37,15 @@ export default function DineoutCard({ restaurant }) {
           {cuisines || "Multi-cuisine"}
         </span>
         <span className="font-semibold text-gray-800">{info?.costForTwo}</span>
+      </div>
+
+      <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
+        <span className="truncate max-w-[60%] font-medium">
+          {info?.locationInfo?.formattedAddress || "Multi-cuisine"}
+        </span>
+        <span className="font-semibold text-gray-800">
+          {info?.locationInfo?.distanceString}
+        </span>
       </div>
     </div>
   );
