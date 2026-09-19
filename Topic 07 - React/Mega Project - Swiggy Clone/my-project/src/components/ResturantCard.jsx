@@ -14,7 +14,7 @@ export default function ResturantCard({ restInfo }) {
   const location = locality || areaName || "";
 
   return (
-    <div className="w-80 shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-white p-3 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl mx-auto">
+    <div className="w-80 cursor-pointer rounded-2xl bg-white p-3 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl mx-auto">
       {/* Image Banner with Overlaid Name & Rating */}
       <div className="relative h-44 w-full overflow-hidden rounded-xl">
         <img
