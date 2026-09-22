@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ResturantCard from "../components/ResturantCard";
+import Shimmer from "../components/Shimmer";
 
 export default function ResturantData() {
   const [restData, setRestData] = useState([]);
@@ -18,7 +19,6 @@ export default function ResturantData() {
 
         const json = await response.json();
 
-        // Safely locate the restaurant cards section
         const restaurantSection = json?.data?.cards?.find(
           (c) => c?.card?.card?.gridElements?.infoWithStyle?.restaurants,
         );
@@ -38,6 +38,7 @@ export default function ResturantData() {
   }, []);
 
   if (error) return <p className="p-4 text-red-500">Failed to load: {error}</p>;
+  if (restData.length == 0) return <Shimmer />;
 
   return (
     <div className="flex flex-wrap gap-4 p-4 mx-auto w-[80%]">

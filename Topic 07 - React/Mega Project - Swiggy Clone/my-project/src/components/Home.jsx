@@ -1,6 +1,7 @@
+import { Link } from "react-router";
+
 function Home() {
   return (
-    // Navbar
     <div className="bg-[#FF5200]">
       <nav className="flex text-black justify-between mx-20 my-5">
         <div>
@@ -24,8 +25,6 @@ function Home() {
         </div>
       </nav>
 
-      {/* Center */}
-
       <div className="flex flex-col items-center text-white relative">
         <p className="text-4xl w-[60%]  font-bold">
           Order food & groceries. Discover best restaurants. Swiggy it!
@@ -43,7 +42,6 @@ function Home() {
           />
         </div>
 
-        {/* Images */}
         <img
           className="absolute right-0 top-1/2 -translate-y-1/2 w-40 object-contain"
           src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/portal/testing/seo-home/Sushi_replace.png"
@@ -56,14 +54,14 @@ function Home() {
         />
       </div>
 
-      {/* Food Cards */}
       <div className="*:w-100 flex justify-center ">
-        <a href="https://www.swiggy.com/restaurants" target="_blank">
+        <Link to="/resturant">
           <img
             src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/23/ec86a309-9b06-48e2-9adc-35753f06bc0a_Food3BU.png"
             alt=""
           />
-        </a>
+        </Link>
+
         <a
           href="https://www.swiggy.com/instamart?entryId=1234&entryName=mainTileEntry4&v=1"
           target="_blank"
