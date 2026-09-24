@@ -1,68 +1,50 @@
 export default function RestInfo({ restData }) {
-  if (!restData) return null;
-
-  const price = (restData.defaultPrice ?? restData.price ?? 0) / 100;
-  const rating = restData?.ratings?.aggregatedRating?.rating;
-  const ratingCount = restData?.ratings?.aggregatedRating?.ratingCountV2;
-  const hasImage = Boolean(restData?.imageId);
-
   return (
-    <div className="group py-6 flex items-start justify-between gap-4 transition-colors duration-200 hover:bg-gray-50/70 rounded-2xl px-3 sm:px-4">
-      {/* Item Details */}
-      <div className="flex-1 min-w-0 pr-2">
-        <h4 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug truncate">
-          {restData?.name}
-        </h4>
+    <>
+      <div className="flex w-full justify-between gap-6 mb-4 pb-4">
+        <div className="w-[65%] md:w-[70%]">
+          <p className="text-lg md:text-xl text-gray-800 font-semibold mb-2">
+            {restData?.name}
+          </p>
 
-        <div className="mt-1 font-semibold text-gray-800 text-sm sm:text-base">
-          ₹{price}
+          <p className="text-base md:text-lg font-medium text-gray-700 mb-2">
+            {"₹" +
+              ("defaultPrice" in restData
+                ? restData?.defaultPrice / 100
+                : restData?.price / 100)}
+          </p>
+
+          <div className="mb-2">
+            <span className="text-green-700 font-semibold">
+              {restData?.ratings?.aggregatedRating?.rating}
+            </span>
+
+            <span className="text-gray-500 ml-1">
+              {"(" + restData?.ratings?.aggregatedRating?.ratingCountV2 + ")"}
+            </span>
+          </div>
+
+          <p className="text-sm md:text-base text-gray-500 leading-relaxed">
+            {restData?.description}
+          </p>
         </div>
 
-        {/* Rating Section */}
-        {rating && (
-          <div className="flex items-center gap-1.5 mt-2">
-            <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-              ★ {rating}
-            </span>
-            {ratingCount && (
-              <span className="text-xs text-gray-500 font-normal">
-                ({ratingCount})
-              </span>
-            )}
-          </div>
-        )}
-
-        {/* Description */}
-        {restData?.description && (
-          <p className="mt-2 text-xs sm:text-sm text-gray-500 line-clamp-2 leading-relaxed">
-            {restData.description}
-          </p>
-        )}
-      </div>
-
-      {/* Item Image & ADD Button */}
-      <div className="relative flex flex-col items-center shrink-0 w-28 sm:w-36">
-        {hasImage ? (
+        <div className="w-[30%] md:w-[20%] relative">
           <img
-            loading="lazy"
-            className="w-28 h-24 sm:w-36 sm:h-28 object-cover rounded-2xl shadow-sm border border-gray-100 transition-transform duration-200 group-hover:scale-[1.02]"
-            src={`https://media-assets.swiggy.com/swiggy/image/upload/${restData.imageId}`}
-            alt={restData?.name || "Dish item"}
-          />
-        ) : (
-          <div className="w-28 h-20 sm:w-36 sm:h-24 bg-gray-100 rounded-2xl flex items-center justify-center text-xs text-gray-400">
-            No Image
-          </div>
-        )}
+            className="w-full h-28 md:h-36 object-cover rounded-2xl md:rounded-3xl shadow-sm"
+            src={
+              "https://media-assets.swiggy.com/swiggy/image/upload/" +
+              restData.imageId
+            }
+          ></img>
 
-        {/* Add Button */}
-        <button
-          type="button"
-          className="absolute -bottom-3 bg-white text-emerald-600 hover:bg-emerald-600 hover:text-white font-bold text-xs sm:text-sm px-6 py-1.5 rounded-lg shadow-md border border-gray-200 hover:border-emerald-600 uppercase tracking-wider transition-all duration-150 transform active:scale-95"
-        >
-          ADD
-        </button>
+          <button className="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-lg text-base md:text-lg font-semibold text-green-600 px-5 md:px-6 py-2 shadow-md border border-gray-200 bg-white hover:bg-green-50 transition-colors">
+            ADD
+          </button>
+        </div>
       </div>
-    </div>
+
+      <hr className="mb-5 mt-2 border-gray-200"></hr>
+    </>
   );
 }

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import MenuCard from "./MenuCard";
 
 export default function RestaurantMenu() {
   let { id } = useParams();
-  console.log(id);
-
+  const navigate = useNavigate();
   const [RestData, setRestData] = useState([]);
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -17,7 +17,7 @@ export default function RestaurantMenu() {
       const tempData =
         data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
       const filterData = tempData.filter(
-        (items) => items?.card?.card?.title !== undefined,
+        (items) => "title" in (items?.card?.card || {}),
       );
       setRestData(filterData);
     }
@@ -25,18 +25,40 @@ export default function RestaurantMenu() {
     fetchData();
   }, []);
 
-  console.log(RestData);
-
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto space-y-4">
-        {RestData.map((menuItem) => (
-          <MenuCard
-            key={menuItem?.card?.card?.title}
-            menuItems={menuItem?.card?.card}
-          />
-        ))}
+    <div className="w-[90%] md:w-[80%] max-w-5xl mx-auto mt-10 md:mt-16 mb-10">
+      <div className="w-full py-4 bg-gray-300 my-20">
+        <button
+          onClick={() => navigate(`/city/delhi/${id}/search`)}
+          className="rounded-2xl text-2xl"
+        >
+          Search Food
+        </button>
       </div>
+
+      {/* Veg / Non-Veg Filter Buttons */}
+      <div className="flex gap-3 mb-8">
+        <button
+          className={`border rounded-2xl px-6 py-2 ${selected === "veg" ? "bg-green-400" : "bg-gray-300"}`}
+          onClick={() => setSelected(selected === "veg" ? null : "veg")}
+        >
+          Veg
+        </button>
+        <button
+          className={`border rounded-2xl px-6 py-2 ${selected === "nonveg" ? "bg-red-400" : "bg-gray-300"}`}
+          onClick={() => setSelected(selected === "nonveg" ? null : "nonveg")}
+        >
+          Non veg
+        </button>
+      </div>
+
+      {RestData.map((menuItems) => (
+        <MenuCard
+          key={menuItems?.card?.card?.title}
+          menuItems={menuItems?.card?.card}
+          foodSelected={selected}
+        ></MenuCard>
+      ))}
     </div>
   );
 }
