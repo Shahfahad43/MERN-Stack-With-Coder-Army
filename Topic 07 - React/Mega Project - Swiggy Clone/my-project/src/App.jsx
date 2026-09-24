@@ -23,3 +23,7 @@ function App() {
 export default App;
 
 // https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7040592&lng=77.10249019999999&restaurantId=622616&catalog_qa=undefined&submitAction=ENTER => Getting individual cards data.
+
+// https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7040592&lng=77.10249019999999&restaurantId${id}
+
+// https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7040592&lng=77.10249019999999&restaurantId=46857&catalog_qa=undefined&submitAction=ENTER

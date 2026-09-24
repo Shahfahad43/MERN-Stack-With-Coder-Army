@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import MenuCard from "./MenuCard";
 
 export default function RestaurantMenu() {
   let { id } = useParams();
   console.log(id);
 
-  const [RestData, setRestData] = useState(null);
+  const [RestData, setRestData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -13,7 +14,12 @@ export default function RestaurantMenu() {
       const swiggyAPI = `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7040592&lng=77.10249019999999&restaurantId=${id}`;
       const response = await fetch(proxyServer + swiggyAPI);
       const data = await response.json();
-      setRestData(data);
+      const tempData =
+        data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+      const filterData = tempData.filter(
+        (items) => items?.card?.card?.title !== undefined,
+      );
+      setRestData(filterData);
     }
 
     fetchData();
@@ -22,9 +28,15 @@ export default function RestaurantMenu() {
   console.log(RestData);
 
   return (
-    <>
-      <h1>Resturant Menu</h1>
-      <h2>{id}</h2>
-    </>
+    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto space-y-4">
+        {RestData.map((menuItem) => (
+          <MenuCard
+            key={menuItem?.card?.card?.title}
+            menuItems={menuItem?.card?.card}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
