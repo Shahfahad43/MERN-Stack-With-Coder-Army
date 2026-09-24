@@ -41,7 +41,7 @@ export default function RestInfo({ restData }) {
       </div>
 
       {/* Item Image & ADD Button */}
-      <div className="relative flex flex-col items-center flex-shrink-0 w-28 sm:w-36">
+      <div className="relative flex flex-col items-center shrink-0 w-28 sm:w-36">
         {hasImage ? (
           <img
             loading="lazy"
