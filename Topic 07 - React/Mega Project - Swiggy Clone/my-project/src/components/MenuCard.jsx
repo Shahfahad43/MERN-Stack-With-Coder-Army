@@ -36,7 +36,7 @@ export default function MenuCard({ menuItems, foodSelected }) {
             className="text-3xl font-bold text-gray-600 hover:text-black px-4 py-2 transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? "^" : "⌄"}
+            {isOpen ? "▲" : "▼"}
           </button>
         </div>
 
