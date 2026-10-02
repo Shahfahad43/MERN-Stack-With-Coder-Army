@@ -72,6 +72,16 @@ app.delete("/user/:id", (req, res) => {
   res.send("Item deleted successfuly from the cart.");
 });
 
+app.get("/dummy", (req, res) => {
+  try {
+    // JSON.parse("Invalid json");
+    throw new Error("Error");
+    res.send("Hello Coder!");
+  } catch {
+    res.send("Error Occured!");
+  }
+});
+
 app.listen(4000, () => {
   console.log("Listening at 4000!");
 });
