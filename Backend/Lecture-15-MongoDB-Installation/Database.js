@@ -7,8 +7,7 @@ const { MongoClient } = require("mongodb");
 // import { MongoClient } from 'mongodb'
 
 // Connection URL
-const url =
-  "mongodb+srv://Shah_Fahad:Fahad123@learningbackend.f4z4wux.mongodb.net/";
+const url = "Put you connection link of the cluster";
 const client = new MongoClient(url);
 
 // Database Name

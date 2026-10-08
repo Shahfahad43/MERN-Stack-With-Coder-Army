@@ -5,9 +5,7 @@ import { Schema } from "mongoose";
 
 async function main() {
   // Database can be created just by giving it a name at the end after the / i.e. Bookstore
-  await mongoose.connect(
-    "mongodb+srv://Shah_Fahad:Fahad123@learningbackend.f4z4wux.mongodb.net/Bookstore",
-  );
+  await mongoose.connect("Put your connection link of the cluster");
 
   const userSchem = new Schema({
     name: String,
