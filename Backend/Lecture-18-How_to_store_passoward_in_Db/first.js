@@ -2,7 +2,7 @@
 
 const bcrypt = require("bcrypt");
 
-const password = "Shah@123";
+const password = "Your password";
 
 async function hashPass() {
   const salt = await bcrypt.genSalt(10);
