@@ -21,7 +21,6 @@ const userSchema = new Schema(
     },
     phoneNumber: {
       type: Number,
-      // required: true,
       unique: true,
     },
     email: {
@@ -36,7 +35,7 @@ const userSchema = new Schema(
       required: true,
     },
   },
-  { timestamps: true }, // to note the time of creation and time of updation.
+  { timestamps: true },
 );
 
 const User = mongoose.model("User", userSchema);

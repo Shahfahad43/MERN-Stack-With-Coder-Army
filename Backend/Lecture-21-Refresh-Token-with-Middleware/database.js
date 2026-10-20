@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 async function main() {
-  await mongoose.connect(
-    "mongodb+srv://Shah_Fahad:Fahad123@learningbackend.f4z4wux.mongodb.net/PersonalInfo",
-  );
+  await mongoose.connect("");
 }
 
 module.exports = main;
