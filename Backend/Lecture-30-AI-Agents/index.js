@@ -1,7 +1,7 @@
 const { GoogleGenAI } = require("@google/genai");
 const dotenv = require("dotenv");
 dotenv.config();
-var readlineSync = require("readline-sync");
+const readlineSync = require("readline-sync");
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 const chatHistory = [];
@@ -110,7 +110,7 @@ Strictly follow the given instructions.`;
         {
           text: `Here is the weather details for the requested cities: ${weatherInString}`,
         },
-      ], // because here in the history, we can't pass any other type of data.
+      ],
     });
     console.log(weather);
   }
