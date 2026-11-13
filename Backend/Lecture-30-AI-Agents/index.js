@@ -124,3 +124,7 @@ chatWithAgent();
 //     {"city": "Islamabad", "date": "today"}
 //   ]
 // }
+
+// Other AI Agents to make for practicing this exercise 
+// 1. GitHub user profile fetcher -> You will type a name and the LLM will give you the exact names which are related to what you typed. 
+// 2. Bitcoin information API 
