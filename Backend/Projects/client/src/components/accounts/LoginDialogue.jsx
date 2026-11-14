@@ -4,7 +4,14 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { styled } from "@mui/material/styles";
 
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+
+import { useContext } from "react";
+import { AccountContext } from "../context/AccountProvider";
+
 import { qrCodeImage } from "../../constants/data";
+import addUser from "../../services/api";
 
 const Component = styled(Box)`
   height: 100vh;
@@ -26,6 +33,15 @@ const Container = styled(Box)`
 `;
 
 const LoginDialogue = () => {
+  const { setAccount } = useContext(AccountContext);
+
+  const onLoginSuccess = async (res) => {
+    const decoded = jwtDecode(res.credential);
+    setAccount(decoded);
+    await addUser(decoded);
+  };
+  const onLoginError = () => {};
+
   return (
     <>
       <Component>
@@ -42,6 +58,9 @@ const LoginDialogue = () => {
           </Box>
           <Box>
             <img src={qrCodeImage} alt="qr-code-img" />
+            <Box style={{ position: "absolute", top: "50%", right: "32%" }}>
+              <GoogleLogin onSuccess={onLoginSuccess} onError={onLoginError} />
+            </Box>
           </Box>
         </Container>
       </Component>
