@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import Sidebar from "./sidebar/Siderbar";
 import Menu from "./menu/Menu";
-import EmptyPage from "./emptyPage/EmptyPage";
+import EmptyPage from "./chat/EmptyPage";
 
 const Container = styled(Box)`
   display: flex;

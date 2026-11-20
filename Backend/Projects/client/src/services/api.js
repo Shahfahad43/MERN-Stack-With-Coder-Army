@@ -1,11 +1,23 @@
 import axios from "axios";
+
 const url = "http://localhost:8000";
-const addUser = async (data) => {
+
+export const addUser = async (data) => {
   try {
-    await axios.post(url, data);
+    const response = await axios.post(`${url}/add`, data);
+    return response.data;
   } catch (error) {
-    console.log("Error :" + error.message);
+    console.error("addUser error:", error.message);
+    throw error;
   }
 };
 
-export default addUser;
+export const getUsers = async () => {
+  try {
+    const response = await axios.get(`${url}/users`);
+    return response.data;
+  } catch (error) {
+    console.error("getUsers error:", error.message);
+    throw error;
+  }
+};

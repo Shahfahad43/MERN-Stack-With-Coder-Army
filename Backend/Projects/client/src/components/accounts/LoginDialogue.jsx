@@ -11,7 +11,7 @@ import { useContext } from "react";
 import { AccountContext } from "../context/AccountProvider";
 
 import { qrCodeImage } from "../../constants/data";
-import addUser from "../../services/api";
+import { addUser } from "../../services/api";
 
 const Component = styled(Box)`
   height: 100vh;

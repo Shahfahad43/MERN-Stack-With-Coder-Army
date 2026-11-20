@@ -4,6 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
+import Conversation from "./Conversation";
+
 const Container = styled(Box)`
   width: 400px;
   min-height: 100vh;
@@ -77,7 +79,9 @@ const Menu = () => {
         <input type="text" placeholder="Search or start a new chat" />
       </TextInput>
 
-      <Box>{/* Chat list goes here */}</Box>
+      <Box>
+        <Conversation />
+      </Box>
     </Container>
   );
 };
