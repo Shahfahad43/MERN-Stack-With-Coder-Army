@@ -21,3 +21,14 @@ export const getUsers = async () => {
     throw error;
   }
 };
+
+export const setConversation = async (data) => {
+  try {
+    const response = await axios.post(`${url}/conversation/add`, data);
+    console.log("Conversation response:", response.data); // Ab console mein dikhega
+    return response.data;
+  } catch (error) {
+    console.error("setConversation error:", error.message);
+    throw error;
+  }
+};

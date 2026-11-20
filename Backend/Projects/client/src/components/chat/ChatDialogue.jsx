@@ -3,6 +3,9 @@ import { styled } from "@mui/material/styles";
 import Sidebar from "./sidebar/Siderbar";
 import Menu from "./menu/Menu";
 import EmptyPage from "./chat/EmptyPage";
+import ChatBox from "./chat/ChatBox";
+import { useContext } from "react";
+import { AccountContext } from "../context/AccountProvider";
 
 const Container = styled(Box)`
   display: flex;
@@ -23,6 +26,7 @@ const Container = styled(Box)`
 `;
 
 const ChatDialogue = () => {
+  const { person } = useContext(AccountContext);
   return (
     <>
       <Container>
@@ -33,7 +37,7 @@ const ChatDialogue = () => {
           <Menu />
         </Box>
         <Box>
-          <EmptyPage />
+          {Object.keys(person || {}).length ? <ChatBox /> : <EmptyPage />}
         </Box>
       </Container>
     </>
