@@ -3,8 +3,10 @@ import { styled } from "@mui/material/styles";
 
 import ChatHeader from "./ChatHeader";
 import Message from "./Messages";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AccountContext } from "../../context/AccountProvider";
+
+import { getConversation } from "../../../services/api";
 
 const Component = styled(Box)`
   height: 100vh;
@@ -15,7 +17,19 @@ const Component = styled(Box)`
 `;
 
 const ChatBox = () => {
-  const { person } = useContext(AccountContext);
+  const { person, account } = useContext(AccountContext);
+
+  useEffect(() => {
+    const getConversationDetails = async () => {
+      let data = await getConversation({
+        senderId: account.sub,
+        recieverId: person.sub,
+      });
+      console.log(data);
+    };
+    getConversationDetails();
+  }, [person.sub]);
+
   return (
     <Component>
       <ChatHeader person={person} />

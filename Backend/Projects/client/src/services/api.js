@@ -25,10 +25,21 @@ export const getUsers = async () => {
 export const setConversation = async (data) => {
   try {
     const response = await axios.post(`${url}/conversation/add`, data);
-    console.log("Conversation response:", response.data); // Ab console mein dikhega
+    console.log("Conversation response:", response.data);
     return response.data;
   } catch (error) {
     console.error("setConversation error:", error.message);
+    throw error;
+  }
+};
+
+export const getConversation = async (data) => {
+  try {
+    const response = await axios.post(`${url}/conversation/get`, data);
+    console.log("Conversation response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("getConversation error:", error.message);
     throw error;
   }
 };
