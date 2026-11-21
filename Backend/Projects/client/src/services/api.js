@@ -25,7 +25,6 @@ export const getUsers = async () => {
 export const setConversation = async (data) => {
   try {
     const response = await axios.post(`${url}/conversation/add`, data);
-    console.log("Conversation response:", response.data);
     return response.data;
   } catch (error) {
     console.error("setConversation error:", error.message);
@@ -36,10 +35,19 @@ export const setConversation = async (data) => {
 export const getConversation = async (data) => {
   try {
     const response = await axios.post(`${url}/conversation/get`, data);
-    console.log("Conversation response:", response.data);
     return response.data;
   } catch (error) {
     console.error("getConversation error:", error.message);
+    throw error;
+  }
+};
+
+export const newMessage = async (data) => {
+  try {
+    const response = await axios.post(`${url}/message/add`, data);
+    return response.data;
+  } catch (error) {
+    console.error("newMessage error:", error.message);
     throw error;
   }
 };

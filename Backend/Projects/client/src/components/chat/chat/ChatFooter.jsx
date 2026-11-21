@@ -7,7 +7,6 @@ import IconButton from "@mui/material/IconButton";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import TagFacesOutlinedIcon from "@mui/icons-material/TagFacesOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
-import { useState } from "react";
 
 const Component = styled(Box)`
   background-color: #f0f2f5;
@@ -30,11 +29,7 @@ const InputField = styled(InputBase)`
   font-size: 14px;
 `;
 
-const ChatFooter = ({ sendText }) => {
-
-  
-
-  const [text, setText] = useState("");
+const ChatFooter = ({ sendText, setValue, value }) => {
   return (
     <Component>
       <IconButton>
@@ -46,9 +41,9 @@ const ChatFooter = ({ sendText }) => {
       <SearchBox>
         <InputField
           placeholder="Type a message"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => setValue(e.target.value)}
           onKeyPress={(e) => sendText(e)}
+          value={value}
         />
       </SearchBox>
       <IconButton>

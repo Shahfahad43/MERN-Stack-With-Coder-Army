@@ -26,11 +26,14 @@ export const getConversation = async (req, res) => {
   try {
     const senderId = req.body.senderId;
     const recieverId = req.body.recieverId;
-    let conversation = Conversation.findOne({
+
+    const conversation = await Conversation.findOne({
       members: { $all: [recieverId, senderId] },
     });
+
     return res.status(200).json(conversation);
   } catch (error) {
+    console.log("getConversation Backend Error:", error); // <-- Terminal mein dekho
     return res.status(500).json(error.message);
   }
 };
