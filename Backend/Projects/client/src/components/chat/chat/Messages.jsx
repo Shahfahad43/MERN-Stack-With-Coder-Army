@@ -2,11 +2,12 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 
 import ChatFooter from "./ChatFooter";
+import SingleMessages from "./SingleMessages";
 
 import { AccountContext } from "../../context/AccountProvider";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { newMessage } from "../../../services/api";
+import { getMessages, newMessage } from "../../../services/api";
 
 const Wrapper = styled(Box)`
   background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
@@ -25,8 +26,21 @@ const MessagesArea = styled(Box)`
 
 const Message = ({ person, conversation }) => {
   const [value, setValue] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [newMessageFlag, setNewMessageFlag] = useState(false);
 
   const { account } = useContext(AccountContext);
+
+  useEffect(() => {
+    const getMessagesDetail = async () => {
+      const response = await getMessages(conversation._id);
+      setMessages(response);
+    };
+
+    conversation?._id && getMessagesDetail();
+  }, [conversation?._id, person?._id, newMessageFlag]);
+
+  console.log(messages);
 
   const sendText = async (e) => {
     const code = e.keyCode || e.which;
@@ -40,12 +54,15 @@ const Message = ({ person, conversation }) => {
       };
       await newMessage(message);
       setValue("");
+      setNewMessageFlag((prev) => !prev);
     }
   };
+
   return (
     <Wrapper>
       <MessagesArea>
-        {/* Yahan saare chat messages render honge */}
+        {messages &&
+          messages.map((mess) => <SingleMessages key={mess._id} mess={mess} />)}
       </MessagesArea>
       <ChatFooter sendText={sendText} setValue={setValue} value={value} />
     </Wrapper>

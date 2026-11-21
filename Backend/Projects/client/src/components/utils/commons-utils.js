@@ -1,0 +1,8 @@
+const formatDate = (date) => {
+  if (!date) return "";
+  const hours = new Date(date).getHours();
+  const minutes = new Date(date).getMinutes();
+  return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}`;
+};
+
+export default formatDate;

@@ -16,3 +16,13 @@ export const newMessage = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+
+export const getMessages = async (req, res) => {
+  try {
+    const messages = await Message.find({ conversationId: req.params.id });
+    return res.status(200).json(messages);
+  } catch (error) {
+    console.log("getMessage Error:", error);
+    return res.status(500).json(error.message);
+  }
+};
