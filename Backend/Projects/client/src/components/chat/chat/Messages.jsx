@@ -28,6 +28,8 @@ const Message = ({ person, conversation }) => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessageFlag, setNewMessageFlag] = useState(false);
+  const [file, setFile] = useState();
+  const [image, setImage] = useState();
 
   const { account } = useContext(AccountContext);
 
@@ -44,16 +46,35 @@ const Message = ({ person, conversation }) => {
 
   const sendText = async (e) => {
     const code = e.keyCode || e.which;
-    if (code === 13) {
-      let message = {
-        senderId: account.sub,
-        recieverId: person.sub,
-        conversationId: conversation._id,
-        type: "text",
-        text: value,
-      };
+    if (code === 13 || e.key === "Enter") {
+      if (!conversation?._id) {
+        console.log("Conversation ID abhi load nahi hui!");
+        return;
+      }
+
+      let message = {};
+      if (!file) {
+        message = {
+          senderId: account.sub,
+          recieverId: person.sub,
+          conversationId: conversation._id,
+          type: "text",
+          text: value,
+        };
+      } else {
+        message = {
+          senderId: account.sub,
+          recieverId: person.sub,
+          conversationId: conversation._id,
+          type: "file",
+          text: image,
+        };
+      }
+
       await newMessage(message);
       setValue("");
+      setFile("");
+      setImage("");
       setNewMessageFlag((prev) => !prev);
     }
   };
@@ -64,7 +85,14 @@ const Message = ({ person, conversation }) => {
         {messages &&
           messages.map((mess) => <SingleMessages key={mess._id} mess={mess} />)}
       </MessagesArea>
-      <ChatFooter sendText={sendText} setValue={setValue} value={value} />
+      <ChatFooter
+        sendText={sendText}
+        setValue={setValue}
+        value={value}
+        file={file}
+        setFile={setFile}
+        setImage={setImage}
+      />
     </Wrapper>
   );
 };

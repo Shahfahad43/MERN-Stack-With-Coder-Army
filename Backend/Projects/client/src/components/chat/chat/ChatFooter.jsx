@@ -7,6 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import TagFacesOutlinedIcon from "@mui/icons-material/TagFacesOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
+import { useEffect } from "react";
+
+import { uploadFile } from "../../../services/api";
 
 const Component = styled(Box)`
   background-color: #f0f2f5;
@@ -29,14 +32,43 @@ const InputField = styled(InputBase)`
   font-size: 14px;
 `;
 
-const ChatFooter = ({ sendText, setValue, value }) => {
+const ChatFooter = ({ sendText, setValue, value, file, setFile, setImage }) => {
+  useEffect(() => {
+    const getFile = async () => {
+      if (file) {
+        const data = new FormData();
+        data.append("name", file.name);
+        data.append("file", file);
+
+        const response = await uploadFile(data);
+        setImage(response.data);
+      }
+    };
+    getFile();
+  }, [file]);
+
+  const onFileChange = (e) => {
+    setFile(e.target.files[0]);
+    setValue(e.target.files[0].name);
+  };
+
   return (
     <Component>
       <IconButton>
         <TagFacesOutlinedIcon />
       </IconButton>
       <IconButton>
-        <AttachFileIcon sx={{ transform: "rotate(40deg)" }} />
+        <label htmlFor="fileInput" style={{ cursor: "pointer" }}>
+          <IconButton component="span">
+            <AttachFileIcon sx={{ transform: "rotate(40deg)" }} />
+          </IconButton>
+        </label>
+        <input
+          type="file"
+          id="fileInput"
+          style={{ display: "none" }}
+          onChange={(e) => onFileChange(e)}
+        />
       </IconButton>
       <SearchBox>
         <InputField

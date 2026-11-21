@@ -19,16 +19,31 @@ const Component = styled(Box)`
 const ChatBox = () => {
   const { person, account } = useContext(AccountContext);
   const [conversation, setConversation] = useState({});
+
   useEffect(() => {
     const getConversationDetails = async () => {
       let data = await getConversation({
         senderId: account.sub,
         recieverId: person.sub,
       });
+
+      // Agar conversation null hai (first time chat), toh pehle create karo:
+      if (!data) {
+        await setConversation({
+          senderId: account.sub,
+          recieverId: person.sub,
+        });
+        data = await getConversation({
+          senderId: account.sub,
+          recieverId: person.sub,
+        });
+      }
+
       setConversation(data);
     };
-    getConversationDetails();
-  }, [person.sub]);
+
+    person?.sub && getConversationDetails();
+  }, [person?.sub]);
 
   return (
     <Component>
