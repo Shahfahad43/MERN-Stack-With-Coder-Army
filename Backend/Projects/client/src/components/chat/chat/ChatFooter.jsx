@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import TagFacesOutlinedIcon from "@mui/icons-material/TagFacesOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
+import SendIcon from "@mui/icons-material/Send";
 import { useEffect } from "react";
 
 import { uploadFile } from "../../../services/api";
@@ -32,6 +33,18 @@ const InputField = styled(InputBase)`
   font-size: 14px;
 `;
 
+const SendButton = styled(IconButton)`
+  color: #54656f;
+  transition:
+    transform 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    color: #00a884;
+    transform: scale(1.08);
+  }
+`;
+
 const ChatFooter = ({ sendText, setValue, value, file, setFile, setImage }) => {
   useEffect(() => {
     const getFile = async () => {
@@ -45,42 +58,64 @@ const ChatFooter = ({ sendText, setValue, value, file, setFile, setImage }) => {
       }
     };
     getFile();
-  }, [file]);
+  }, [file, setImage]);
 
   const onFileChange = (e) => {
-    setFile(e.target.files[0]);
-    setValue(e.target.files[0].name);
+    if (e.target.files[0]) {
+      setFile(e.target.files[0]);
+      setValue(e.target.files[0].name);
+    }
   };
+
+  // Send button par click karne se bhi Enter key wala same sendText trigger ho:
+  const handleSendClick = () => {
+    if (value?.trim() || file) {
+      sendText({ key: "Enter", keyCode: 13 });
+    }
+  };
+
+  const hasTextOrFile = Boolean(value?.trim() || file);
 
   return (
     <Component>
       <IconButton>
         <TagFacesOutlinedIcon />
       </IconButton>
-      <IconButton>
-        <label htmlFor="fileInput" style={{ cursor: "pointer" }}>
-          <IconButton component="span">
-            <AttachFileIcon sx={{ transform: "rotate(40deg)" }} />
-          </IconButton>
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          style={{ display: "none" }}
-          onChange={(e) => onFileChange(e)}
-        />
-      </IconButton>
+
+      <label htmlFor="fileInput">
+        <IconButton component="span">
+          <AttachFileIcon sx={{ transform: "rotate(40deg)" }} />
+        </IconButton>
+      </label>
+      <input
+        type="file"
+        id="fileInput"
+        style={{ display: "none" }}
+        onChange={onFileChange}
+      />
+
       <SearchBox>
         <InputField
           placeholder="Type a message"
           onChange={(e) => setValue(e.target.value)}
-          onKeyPress={(e) => sendText(e)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && hasTextOrFile) {
+              sendText(e);
+            }
+          }}
           value={value}
         />
       </SearchBox>
-      <IconButton>
-        <KeyboardVoiceOutlinedIcon />
-      </IconButton>
+
+      {hasTextOrFile ? (
+        <SendButton onClick={handleSendClick}>
+          <SendIcon />
+        </SendButton>
+      ) : (
+        <IconButton>
+          <KeyboardVoiceOutlinedIcon />
+        </IconButton>
+      )}
     </Component>
   );
 };
