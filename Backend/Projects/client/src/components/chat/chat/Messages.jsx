@@ -27,22 +27,45 @@ const MessagesArea = styled(Box)`
 const Message = ({ person, conversation }) => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
-  const [newMessageFlag, setNewMessageFlag] = useState(false);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
+  const [incomingMessage, setIncomingMessage] = useState(null);
 
-  const { account } = useContext(AccountContext);
+  const { account, socket, newMessageFlag, setNewMessageFlag } =
+    useContext(AccountContext);
 
   useEffect(() => {
-    const getMessagesDetail = async () => {
-      const response = await getMessages(conversation._id);
-      setMessages(response);
+    const handleGetMessage = (data) => {
+      setIncomingMessage({
+        ...data,
+        createdAt: Date.now(),
+      });
     };
 
-    conversation?._id && getMessagesDetail();
-  }, [conversation?._id, person?._id, newMessageFlag]);
+    socket.current?.on("getMessage", handleGetMessage);
 
-  console.log(messages);
+    return () => {
+      socket.current?.off("getMessage", handleGetMessage);
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    if (
+      incomingMessage &&
+      conversation?.members?.includes(incomingMessage.senderId)
+    ) {
+      setMessages((prev) => [...prev, incomingMessage]);
+    }
+  }, [incomingMessage, conversation]);
+
+  useEffect(() => {
+    const getMessageDetails = async () => {
+      let data = await getMessages(conversation._id);
+      setMessages(data);
+    };
+
+    conversation?._id && getMessageDetails();
+  }, [person?._id, conversation?._id, newMessageFlag]);
 
   const sendText = async (e) => {
     const code = e.keyCode || e.which;
@@ -71,6 +94,8 @@ const Message = ({ person, conversation }) => {
         };
       }
 
+      socket.current.emit("sendMessage", message);
+
       await newMessage(message);
       setValue("");
       setFile("");
@@ -83,7 +108,9 @@ const Message = ({ person, conversation }) => {
     <Wrapper>
       <MessagesArea>
         {messages &&
-          messages.map((mess) => <SingleMessages key={mess._id} mess={mess} />)}
+          messages.map((mess, index) => (
+            <SingleMessages key={mess._id || index} mess={mess} />
+          ))}
       </MessagesArea>
       <ChatFooter
         sendText={sendText}

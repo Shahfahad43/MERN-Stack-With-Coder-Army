@@ -8,7 +8,8 @@ const Conversation = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { account } = useContext(AccountContext);
+  const { account, socket, setActiveUsers, setNewMessageFlag } =
+    useContext(AccountContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +25,27 @@ const Conversation = () => {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    if (!account?.sub || !socket.current) return;
+
+    socket.current.emit("addUsers", account);
+
+    const handleGetUsers = (users) => {
+      setActiveUsers(users);
+    };
+
+    const handleSidebarMessage = () => {
+      setNewMessageFlag((prev) => !prev);
+    };
+
+    socket.current.on("getUsers", handleGetUsers);
+    socket.current.on("getMessage", handleSidebarMessage);
+
+    return () => {
+      socket.current?.off("getUsers", handleGetUsers);
+      socket.current?.off("getMessage", handleSidebarMessage);
+    };
+  }, [account, socket, setActiveUsers, setNewMessageFlag]);
 
   if (loading) return <Box>Loading...</Box>;
   if (error) return <Box>Error: {error}</Box>;

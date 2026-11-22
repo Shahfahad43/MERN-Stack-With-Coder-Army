@@ -2,6 +2,8 @@
 import Messenger from "./components/Messenger";
 import AccountProvider from "./components/context/AccountProvider";
 
+import "./index.css";
+
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {

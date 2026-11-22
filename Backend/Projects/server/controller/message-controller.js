@@ -1,18 +1,19 @@
-import Conversation from "../model/Conversation.js";
 import Message from "../model/Message.js";
+import Conversation from "../model/Conversation.js";
 
 export const newMessage = async (req, res) => {
   try {
-    const newMessage = await new Message(req.body);
-    newMessage.save();
+    const newMessage = new Message(req.body);
+    await newMessage.save();
 
-    await Conversation.findByIdAndUpdate(req.body.conversationId, {
-      message: req.body.text,
-    });
+    await Conversation.findByIdAndUpdate(
+      req.body.conversationId,
+      { $set: { message: req.body.text } },
+      { returnDocument: "after" },
+    );
 
-    return res.status(200).json(newMessage);
+    return res.status(200).json("Message has been sent successfully");
   } catch (error) {
-    console.log("newMessage Backend Error:", error);
     return res.status(500).json(error.message);
   }
 };
@@ -22,7 +23,6 @@ export const getMessages = async (req, res) => {
     const messages = await Message.find({ conversationId: req.params.id });
     return res.status(200).json(messages);
   } catch (error) {
-    console.log("getMessage Error:", error);
     return res.status(500).json(error.message);
   }
 };

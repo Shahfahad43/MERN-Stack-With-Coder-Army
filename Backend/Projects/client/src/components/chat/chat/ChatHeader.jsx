@@ -8,8 +8,12 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import CallIcon from "@mui/icons-material/Call";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useContext } from "react";
+import { AccountContext } from "../../context/AccountProvider";
 
 const ChatHeader = ({ person }) => {
+  const { activeUsers } = useContext(AccountContext);
+
   return (
     <Box
       sx={{
@@ -33,7 +37,9 @@ const ChatHeader = ({ person }) => {
             {person.name}
           </Typography>
           <Typography variant="caption" color="text.secondary">
-            Online/Offline
+            {activeUsers?.find((user) => user.sub === person.sub)
+              ? "Online"
+              : "Offline"}
           </Typography>
         </Box>
       </Box>
