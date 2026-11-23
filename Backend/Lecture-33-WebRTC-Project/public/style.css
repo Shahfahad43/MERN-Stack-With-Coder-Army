@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #1a1a1a;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Video area */
+.videos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.videos video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Incoming call alert */
+.call-alert {
+  background: #333;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.call-alert h2 {
+  margin-bottom: 15px;
+}
+
+.call-alert.hidden {
+  display: none;
+}
+
+.callBtns {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #4a90e2;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: #357abd;
+}
+
+button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+#acceptBtn {
+  background: #2ecc71;
+}
+
+#acceptBtn:hover {
+  background: #27ae60;
+}
+
+#rejectBtn {
+  background: #e74c3c;
+}
+
+#rejectBtn:hover {
+  background: #c0392b;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .videos {
+    grid-template-columns: 1fr;
+  }
+}
