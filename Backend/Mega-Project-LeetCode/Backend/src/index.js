@@ -3,8 +3,12 @@ const app = express();
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 
+const authRouter = require("./routes/userAuth.js");
+
 app.use(express.json());
 app.use(cookieParser());
+
+app.use("/auth", authRouter);
 
 const main = require("./config/db");
 

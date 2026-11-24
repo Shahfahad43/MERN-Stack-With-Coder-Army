@@ -5,7 +5,7 @@ const userSchema = new Schema(
   {
     firstName: {
       type: String,
-      require: true,
+      required: true,
       minLength: 3,
       maxLength: 20,
     },
@@ -16,7 +16,7 @@ const userSchema = new Schema(
     },
     emailId: {
       type: String,
-      require: true,
+      required: true,
       immutable: true,
       unique: true,
       trim: true,
@@ -33,7 +33,11 @@ const userSchema = new Schema(
       defaul: "user",
     },
     problemSolved: {
-      type: [string],
+      type: [String],
+    },
+    password: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true },
