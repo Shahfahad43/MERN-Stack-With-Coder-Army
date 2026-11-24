@@ -13,23 +13,60 @@ const register = async (req, res) => {
   try {
     validate(req.body);
 
-    const { firstName, emailId, password } = req.body;
+    const { firstName, lastName, emailId, age, password } = req.body;
 
     // hasing the user password
-    req.body.password = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create(req.body);
+    const user = await User.create({
+      firstName,
+      lastName,
+      emailId,
+      age,
+      password: hashedPassword,
+      role: "user",
+    });
 
     // giving token to the user -> header , payload, key
-    const token = jwt.sign({ _id: user._id, emailId: emailId }, JWT_SECRET, {
-      expiresIn: 3600,
-    });
+    const token = jwt.sign(
+      { _id: user._id, emailId: emailId, role: user.role },
+      JWT_SECRET,
+      {
+        expiresIn: 3600,
+      },
+    );
 
     res.cookie("token", token, { maxAge: 60 * 60 * 1000 }); // it is in the milliseconds
 
     res.status(200).json("user created successfuly!", user);
   } catch (error) {
     return res.status(500).json(error.message);
+  }
+};
+
+// admin registeration
+const registerAdmin = async (req, res) => {
+  try {
+    validate(req.body);
+
+    const { firstName, lastName, emailId, age, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const adminUser = await User.create({
+      firstName,
+      lastName,
+      emailId,
+      age,
+      password: hashedPassword,
+      role: "admin",
+    });
+
+    res.status(201).json({
+      message: "Admin created successfully!",
+      user: adminUser,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -90,4 +127,4 @@ const getProfile = async (req, res) => {
 // using this a random jwt secret can be generated.
 // node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
-module.exports = { register, login, logout, getProfile };
+module.exports = { register, registerAdmin, login, logout, getProfile };

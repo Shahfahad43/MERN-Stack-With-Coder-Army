@@ -7,10 +7,14 @@ const {
   login,
   logout,
   getProfile,
+  registerAdmin,
 } = require("../controllers/userAuth-controller");
 
 // register
 authRouter.post("/register", register);
+
+// admin register
+authRouter.post("/admin/register", registerAdmin);
 
 // login
 authRouter.post("/login", login);
