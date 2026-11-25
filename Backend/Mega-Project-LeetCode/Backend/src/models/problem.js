@@ -76,6 +76,20 @@ const problemSchema = new Schema(
         },
       },
     ],
+
+    referanceSolution: [
+      {
+        language: {
+          type: String,
+          required: true,
+        },
+        completeCode: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+
     code: [
       {
         language: {

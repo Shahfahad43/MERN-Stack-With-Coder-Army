@@ -1,20 +1,23 @@
 const express = require("express");
 const problemRoute = express.Router();
 
+// admin middleware for creating, updating and deleting the problem
+const adminMiddleware = require("../middleware/adminMiddleware");
+
 // For Admin
 // create
-problemRoute.post("/create", problemCreate);
+problemRoute.post("/create", adminMiddleware, createProblem);
 
 // delete
-problemRoute.delete("/:id", problemDelete);
+problemRoute.delete("/:id", deleteProblem);
 
 // update
-problemRoute.patch("/:id", problemUpdate);
+problemRoute.patch("/:id", updateProblem);
 
 // For All
 // fetch
-problemRoute.get("/:id", problemFetch);
-problemRoute.get("/", problemFetchAll);
+problemRoute.get("/:id", getProblemById);
+problemRoute.get("/", fetchAllProlbmes);
 
 // solved problem
-problemRoute.get("/user", problemSolved);
+problemRoute.get("/user", solvedProblems);
