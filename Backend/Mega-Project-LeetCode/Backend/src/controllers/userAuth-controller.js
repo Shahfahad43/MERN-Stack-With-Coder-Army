@@ -101,6 +101,7 @@ const login = async (req, res) => {
 // logut -> we can implement Redis for making it more secure
 const logout = async (req, res) => {
   try {
+    // here we will use the middleware
   } catch (error) {
     return res.status(500).json("Error while login ", error.message);
   }
