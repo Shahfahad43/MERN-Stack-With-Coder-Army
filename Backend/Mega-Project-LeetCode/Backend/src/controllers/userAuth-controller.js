@@ -3,6 +3,7 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const redisClient = require("../config/redis");
 
 require("dotenv").config();
 
@@ -24,7 +25,7 @@ const register = async (req, res) => {
       emailId,
       age,
       password: hashedPassword,
-      role: "user",
+      role: "user", // this is important because if we don't do this then anyone will be able to send himself as an admin
     });
 
     // giving token to the user -> header , payload, key
@@ -50,23 +51,31 @@ const registerAdmin = async (req, res) => {
     validate(req.body);
 
     const { firstName, lastName, emailId, age, password } = req.body;
+
+    // hasing the user password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const adminUser = await User.create({
+    const user = await User.create({
       firstName,
       lastName,
       emailId,
       age,
       password: hashedPassword,
-      role: "admin",
     });
 
-    res.status(201).json({
-      message: "Admin created successfully!",
-      user: adminUser,
-    });
+    const token = jwt.sign(
+      { _id: user._id, emailId: emailId, role: user.role },
+      JWT_SECRET,
+      {
+        expiresIn: 3600,
+      },
+    );
+
+    res.cookie("token", token, { maxAge: 60 * 60 * 1000 });
+
+    res.status(200).json("user created successfuly!", user);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json(error.message);
   }
 };
 
@@ -86,9 +95,13 @@ const login = async (req, res) => {
 
     if (!match) throw new Error("Invalid credentials!");
 
-    const token = jwt.sign({ _id: user._id, emailId: emailId }, JWT_SECRET, {
-      expiresIn: 3600,
-    });
+    const token = jwt.sign(
+      { _id: user._id, emailId: emailId, role: user.role },
+      JWT_SECRET,
+      {
+        expiresIn: 3600,
+      },
+    );
 
     res.cookie("token", token, { maxAge: 60 * 60 * 1000 });
 
@@ -101,7 +114,14 @@ const login = async (req, res) => {
 // logut -> we can implement Redis for making it more secure
 const logout = async (req, res) => {
   try {
-    // here we will use the middleware
+    const { token } = req.cookies;
+    const payload = jwt.decode(token);
+
+    await redisClient.set(`token${token}`, `Blocked`);
+    await redisClient.expireAt(`token${token}`, payload.exp);
+
+    res.cookie(`token`, null, { expiresIn: new Date(Date.now()) });
+    res.send("Logged out successfuly!");
   } catch (error) {
     return res.status(500).json("Error while login ", error.message);
   }

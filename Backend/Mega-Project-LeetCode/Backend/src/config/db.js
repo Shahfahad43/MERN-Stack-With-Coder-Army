@@ -5,7 +5,7 @@ const MONGODB = process.env.MONGODB_CONNECT_STR;
 
 async function main() {
   await mongoose.connect(MONGODB);
-  console.log("Connected to Database!");
+  console.log("MongoDB Connected!");
 }
 
 module.exports = main;

@@ -1,20 +1,39 @@
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const redisClient = require("../config/redis");
 
-const userMiddleware = async (req, res) => {
+const userMiddleware = async (req, res, next) => {
   try {
     const { token } = req.cookies;
 
-    if (!token) throw new Error("Please login first!");
+    if (!token) {
+      return res.status(401).json({ message: "Please login first!" });
+    }
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-
     const { _id } = payload;
 
-    if (!id) throw new Error("User doesn't exist");
+    if (!_id) {
+      return res.status(401).json({ message: "Invalid token payload" });
+    }
 
-    // here we will use the Redis
+    const isBlacklisted = await redisClient.exists(`blacklist:${token}`);
+    if (isBlacklisted) {
+      return res
+        .status(401)
+        .json({ message: "Token has been invalidated (logged out)" });
+    }
+
+    req.user = payload;
+    return next();
   } catch (error) {
-    return res.status(500).json("Error in user middleware", error.message);
+    if (
+      error.name === "JsonWebTokenError" ||
+      error.name === "TokenExpiredError"
+    ) {
+      return res.status(401).json({ message: "Invalid or expired token" });
+    }
+    return res.status(500).json({ message: error.message });
   }
 };
+
+module.exports = userMiddleware;

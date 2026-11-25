@@ -1,8 +1,8 @@
-require("dotenv").config();
-
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+
+require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
 const authRouter = require("./routes/userAuth.js");
 const main = require("./config/db");
@@ -19,7 +19,7 @@ const initializeConnection = async () => {
   try {
     await main();
     await redisClient.connect();
-    console.log("DBs Connected!");
+    console.log("Redis Connected!");
     app.listen(PORT, () => {
       console.log(`App is listening at port: ${PORT}`);
     });

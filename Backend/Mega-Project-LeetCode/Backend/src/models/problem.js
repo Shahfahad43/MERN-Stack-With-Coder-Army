@@ -103,6 +103,7 @@ const problemSchema = new Schema(
       },
     ],
     problemsCreator: {
+      // to know the information of those who created the problem
       type: Schema.Types.ObjectId,
       ref: "user",
       required: true,

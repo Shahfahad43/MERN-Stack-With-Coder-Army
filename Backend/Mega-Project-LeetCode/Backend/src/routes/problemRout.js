@@ -9,10 +9,10 @@ const adminMiddleware = require("../middleware/adminMiddleware");
 problemRoute.post("/create", adminMiddleware, createProblem);
 
 // delete
-problemRoute.delete("/:id", deleteProblem);
+problemRoute.delete("/:id", adminMiddleware, deleteProblem);
 
 // update
-problemRoute.patch("/:id", updateProblem);
+problemRoute.patch("/:id", adminMiddleware, updateProblem);
 
 // For All
 // fetch
