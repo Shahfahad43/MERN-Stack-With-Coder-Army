@@ -1,3 +1,5 @@
+const { getLanguageById, submitBatch } = require("../utils/problemUtility");
+
 const createProblem = async (req, res) => {
   try {
     const {
@@ -14,7 +16,17 @@ const createProblem = async (req, res) => {
     } = req.body;
 
     for (const { language, completeCode } of referanceSolution) {
-        // here we will be using Judge0
+      // here we will be using Judge0
+      const languageId = getLanguageById(language);
+
+      const submissions = visibleTestCases.map((input, output) => ({
+        source_code: completeCode,
+        language_id: languageId,
+        stdin: input, // standard input
+        expected_output: output,
+      }));
+
+      const submitResponse = submitBatch(submissions);
     }
   } catch (error) {
     return res

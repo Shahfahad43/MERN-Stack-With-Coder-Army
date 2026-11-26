@@ -4,7 +4,7 @@ const problemRoute = express.Router();
 // admin middleware for creating, updating and deleting the problem
 const adminMiddleware = require("../middleware/adminMiddleware");
 
-// For Admin
+// For Admin -> That's why we add the admin middleware
 // create
 problemRoute.post("/create", adminMiddleware, createProblem);
 
