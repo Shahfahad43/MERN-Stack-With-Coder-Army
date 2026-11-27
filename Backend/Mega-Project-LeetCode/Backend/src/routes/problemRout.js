@@ -32,6 +32,6 @@ problemRoute.get("/problemById/:id", userMiddleware, getProblemById);
 problemRoute.get("/allProblem", userMiddleware, fetchAllProlbmes);
 
 // solved problem
-problemRoute.get("/user", solvedProblems);
+// problemRoute.get("/user", solvedProblems);
 
 module.exports = problemRoute;

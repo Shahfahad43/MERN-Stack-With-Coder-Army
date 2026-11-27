@@ -208,9 +208,12 @@ const getProblemById = async (req, res) => {
   try {
     const { id } = req.params;
     if (!id) return res.send("Missing id!");
-    const existProblem = await Problem.findById(id);
+    // but we can't send all the information to the user -> the things can be exposed which normally shouldn't be so that's why we user "select"
+    const existProblem = await Problem.findById(id).select(
+      "_id title description difficulty tags visibleTestCases starterCode referanceSolution",
+    );
     if (!existProblem) return res.send("Problem doesn't exist!");
-    return res.status(200).json("Problem: ", existProblem);
+    return res.status(200).json(existProblem);
   } catch (error) {
     return res
       .status(500)
@@ -222,7 +225,12 @@ const getProblemById = async (req, res) => {
 const fetchAllProlbmes = async (req, res) => {
   try {
     const allProblems = await Problem.find({});
-    if (!allProblems) return res.send("Problems are missing!");
+    if (allProblems.length == 0) return res.send("Problems are missing!");
+
+    // but here is a problem -> Getting all the problems at a time and then sending it. -> we can't get the problems using "pagination". -> on the page 10 problems and then on another page another ten and just like that.
+
+    // just like that I can find different problems based on their difficulty level.
+
     return res.status(200).json(allProblems);
   } catch (error) {
     return res
