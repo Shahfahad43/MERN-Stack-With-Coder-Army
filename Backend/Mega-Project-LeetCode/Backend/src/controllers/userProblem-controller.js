@@ -4,7 +4,7 @@ const {
   submitToken,
 } = require("../utils/problemUtility");
 const Problem = require("../models/problem");
-
+const User = require("../models/user");
 // create a new problem
 const createProblem = async (req, res) => {
   try {
@@ -224,7 +224,9 @@ const getProblemById = async (req, res) => {
 // get all problems
 const fetchAllProlbmes = async (req, res) => {
   try {
-    const allProblems = await Problem.find({});
+    const allProblems = await Problem.find(
+      {}.select("_id title difficult tags"),
+    );
     if (allProblems.length == 0) return res.send("Problems are missing!");
 
     // but here is a problem -> Getting all the problems at a time and then sending it. -> we can't get the problems using "pagination". -> on the page 10 problems and then on another page another ten and just like that.
@@ -239,10 +241,31 @@ const fetchAllProlbmes = async (req, res) => {
   }
 };
 
+// get all the problems by user
+const solvedProblems = async (req, res) => {
+  try {
+    // we can us
+    // const user = await User.findById(req.user._id);
+    // const count = user.problemSolved.length;
+    // return res.status(200).json(count); -> we can find the number of solved problems but if we need the full list of problems solved with their data then we use ".populate()"
+    const user = await User.findById(req.user._id).populate({
+      path: "problemSolved",
+      select: "_id title description difficulty",
+      // getting only the information we need and for security purpose. -> as we did in the fetch problem by id function.
+    });
+    return res.status(200).json(user.problemSolved);
+  } catch (error) {
+    return res
+      .status(500)
+      .json(`Error while getting solved problems: ${error.message}`);
+  }
+};
+
 module.exports = {
   createProblem,
   updateProblem,
   deleteProblem,
   getProblemById,
   fetchAllProlbmes,
+  solvedProblems,
 };

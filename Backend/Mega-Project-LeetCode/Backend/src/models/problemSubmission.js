@@ -36,11 +36,11 @@ const submissionSchema = new Schema(
     // ─────────────── VERDICT ───────────────
     statusId: {
       type: Number,
-      required: true, // Judge0 status: 3=Accepted, 4=WA, 5=TLE, 6=CE...
+      // required: true, // Judge0 status: 3=Accepted, 4=WA, 5=TLE, 6=CE...
     },
     statusDescription: {
       type: String,
-      required: true, // "Accepted" / "Wrong Answer" / ...
+      // required: true, // "Accepted" / "Wrong Answer" / ...
     },
 
     // ─────────────── OUTPUT ───────────────

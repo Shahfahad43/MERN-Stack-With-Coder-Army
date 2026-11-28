@@ -8,6 +8,7 @@ const {
   deleteProblem,
   getProblemById,
   fetchAllProlbmes,
+  solvedProblems,
 } = require("../controllers/userProblem-controller");
 
 // admin middleware for creating, updating and deleting the problem
@@ -32,6 +33,6 @@ problemRoute.get("/problemById/:id", userMiddleware, getProblemById);
 problemRoute.get("/allProblem", userMiddleware, fetchAllProlbmes);
 
 // solved problem
-// problemRoute.get("/user", solvedProblems);
+problemRoute.get("/solvedProbems", userMiddleware, solvedProblems);
 
 module.exports = problemRoute;

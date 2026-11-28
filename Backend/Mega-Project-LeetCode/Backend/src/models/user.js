@@ -33,7 +33,9 @@ const userSchema = new Schema(
       default: "user",
     },
     problemSolved: {
-      type: [String],
+      type: [Schema.Types.ObjectId],
+      ref: "problem",
+      default: [],
     },
     password: {
       type: String,
