@@ -72,5 +72,8 @@ const submissionSchema = new Schema(
   { timestamps: true },
 );
 
+// creating submission schema for getting the specific problems of the a user
+submissionSchema.index({ userId: 1, problemId: 1 }); // 1 means arranging in ascending order and -1 means arranging in descending order
+
 const Submission = mongoose.model("submission", submissionSchema);
 module.exports = Submission;

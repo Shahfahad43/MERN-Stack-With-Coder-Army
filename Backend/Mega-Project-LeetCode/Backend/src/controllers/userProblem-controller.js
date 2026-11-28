@@ -5,6 +5,9 @@ const {
 } = require("../utils/problemUtility");
 const Problem = require("../models/problem");
 const User = require("../models/user");
+const Submission = require("../models/problemSubmission");
+const redis = require("../config/redis");
+
 // create a new problem
 const createProblem = async (req, res) => {
   try {
@@ -187,7 +190,6 @@ const updateProblem = async (req, res) => {
 };
 
 // delete an existing user
-
 const deleteProblem = async (req, res) => {
   try {
     const { id } = req.params;

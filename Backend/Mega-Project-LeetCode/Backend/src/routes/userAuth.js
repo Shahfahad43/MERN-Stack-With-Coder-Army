@@ -8,6 +8,8 @@ const {
   logout,
   getProfile,
   registerAdmin,
+  deleteProfile,
+  getAllProblemsOfUser,
 } = require("../controllers/userAuth-controller");
 
 const userMiddleware = require("../middleware/userMiddleware");
@@ -27,5 +29,15 @@ authRouter.post("/logout", userMiddleware, logout);
 
 // fetching
 authRouter.get("/getProfile", getProfile);
+
+// delete profile
+authRouter.delete("/deleteProfile", userMiddleware, deleteProfile);
+
+// get the problems of the user
+authRouter.get(
+  "/getAllProblemsOfUser/:id",
+  userMiddleware,
+  getAllProblemsOfUser,
+);
 
 module.exports = authRouter;

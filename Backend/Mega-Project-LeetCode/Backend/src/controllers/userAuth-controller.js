@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const redisClient = require("../config/redis");
+const Submission = require("../models/problemSubmission");
 
 require("dotenv").config();
 
@@ -145,7 +146,87 @@ const getProfile = async (req, res) => {
   }
 };
 
+// delete user profile
+const deleteProfile = async (req, res) => {
+  try {
+    const user = req.user._id;
+    await User.findByIdAndDelete(user);
+    await Submission.deleteMany({ user });
+    return res.status(200).json("User deleted successfuly!");
+  } catch (error) {
+    return res
+      .status(500)
+      .json(`Error while deleting user profile: ${error.message}`);
+  }
+};
+
 // using this a random jwt secret can be generated.
 // node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
-module.exports = { register, registerAdmin, login, logout, getProfile };
+// Here make a function in which  You can get all the problems of a specific user in an order and then you can apply the right limiter for cooling down that systems for ten seconds, like you should not be able to use that function just after applying it for ten seconds.
+
+const COOLDOWN_SECONDS = 10;
+
+const getAllProblemsOfUser = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const cooldownKey = `cooldown:problems:${userId}`;
+    const acquired = await redisClient.set(
+      cooldownKey,
+      "1",
+      "EX",
+      COOLDOWN_SECONDS,
+      "NX",
+    );
+
+    if (!acquired) {
+      const ttl = await redisClient.ttl(cooldownKey);
+      return res
+        .status(429)
+        .set("Retry-After", String(ttl))
+        .json({
+          message: `Please wait ${ttl} more second(s) before retrying`,
+          retryAfter: ttl,
+        });
+    }
+
+    const submissions = await Submission.find({ userId })
+      .sort({ createdAt: -1 })
+      .populate("problemId", "title difficulty tags")
+      .select(
+        "problemId status statusId passedTestCases totalTestCases runtime memory createdAt",
+      )
+      .lean();
+
+    if (!submissions || submissions.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No submissions found for this user" });
+    }
+
+    return res.status(200).json({
+      count: submissions.length,
+      cooldown: COOLDOWN_SECONDS,
+      submissions,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Error while getting user's submissions: ${error.message}`,
+    });
+  }
+};
+
+module.exports = {
+  register,
+  registerAdmin,
+  login,
+  logout,
+  getProfile,
+  deleteProfile,
+  getAllProblemsOfUser,
+};
